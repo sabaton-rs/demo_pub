@@ -1,6 +1,7 @@
 #![forbid(unsafe_code)]
 
 use std::{time::Duration, sync::Arc};
+use std::thread;
 // Main Library file
 use sabaton_mw::{NodeBuilder, error::MiddlewareError};
 use tracing::{debug, info, span, Level};
@@ -37,12 +38,31 @@ pub fn example_node_main() -> Result<(),MiddlewareError> {
             loop {
                 let _ = ticker.tick().await;
                 debug!("Tick");
-                let speed = Arc::new(Speed::new(KilometrePerHour(0.0), None).unwrap());
-                let mut res = SpeedWriter.publish(speed);
+                let speed = Arc::new(Speed::new(KilometrePerHour(10.0), None).unwrap());
+                let mut res = SpeedWriter.publish(speed.clone());
+                match res
+                {
+                    Ok(v)=> println!("Speed: {:?}", speed.value().0),
+                    Err(e) => println!("Error in publishing speed: {:?}", e),
+                }
+                
                 let moving = Arc::new(IsMoving::new(false,None).unwrap());
-                let mut res = IsmovingWriter.publish(moving);
+                let mut res = IsmovingWriter.publish(moving.clone());
+                match res
+                {
+                    Ok(v)=> println!("IsMoving: {:?}", moving.value()),
+                    Err(e) => println!("Error in publishing moving: {:?}", e),
+                }
                 let ignition = Arc::new(IgnitionOn::new(false,None).unwrap());
-                let mut res = IgnitionOnWriter.publish(ignition);
+                let mut res = IgnitionOnWriter.publish(ignition.clone());
+                match res
+                {
+                    Ok(v)=> println!("Ignition: {:?}", ignition.value()),
+                    Err(e) => println!("Error in publishing ignition: {:?}", e),
+                }
+                
+                //println!("Is Moving={}",moving);
+                //println!("Igition On={}",ignition);
             }
 
          });
