@@ -1,5 +1,5 @@
 #![forbid(unsafe_code)]
-
+/* 
 use std::{time::Duration, sync::Arc};
 use std::thread;
 // Main Library file
@@ -72,4 +72,4 @@ pub fn example_node_main() -> Result<(),MiddlewareError> {
 
     res
 
-}
+}*/

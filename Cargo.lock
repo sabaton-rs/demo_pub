@@ -99,17 +99,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-signals"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7764064e8871fca00fb487328c3c9cfc71c0871b46d7b61f0089fd8a2d69cc30"
-dependencies = [
- "futures-core",
- "nix",
- "once_cell",
-]
-
-[[package]]
 name = "async-std"
 version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -500,26 +489,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "fix-hidden-lifetime-bug"
-version = "0.2.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4b7e739f1d47bbc5185391f0b280ef0bd953fa2327d0bf0c619183502923938"
-dependencies = [
- "fix-hidden-lifetime-bug-proc_macros",
-]
-
-[[package]]
-name = "fix-hidden-lifetime-bug-proc_macros"
-version = "0.2.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb97774845ef67bfa186b3a39ed2dec87ed70b4932f076ca75392e9c58a6bda1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
 name = "fixedbitset"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -813,15 +782,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "308cc39be01b73d0d18f82a0e7b2a3df85245f84af96fdddc5d202d27e47b86a"
 
 [[package]]
-name = "memoffset"
-version = "0.6.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5aa361d4faea93603064a027415f07bd8e1d5c88c9fbf68bf56a285428fd79ce"
-dependencies = [
- "autocfg",
-]
-
-[[package]]
 name = "mio"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -849,19 +809,6 @@ name = "murmur3"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3ead5388e485d38e622630c6b05afd3761a6701ff15c55b279ea5b31dcb62cff"
-
-[[package]]
-name = "nix"
-version = "0.23.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f866317acbd3a240710c63f065ffb1e4fd466259045ccb504130b7f668f35c6"
-dependencies = [
- "bitflags",
- "cc",
- "cfg-if 1.0.0",
- "libc",
- "memoffset",
-]
 
 [[package]]
 name = "nom"
@@ -1033,7 +980,6 @@ version = "0.1.0"
 dependencies = [
  "clap 3.1.8",
  "interface-example",
- "sabaton-mw",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -1134,30 +1080,6 @@ name = "ryu"
 version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "73b4b750c782965c211b42f022f59af1fbceabdd026623714f104152f1ec149f"
-
-[[package]]
-name = "sabaton-mw"
-version = "0.1.0"
-source = "git+https://github.com/sabaton-rs/sabaton-mw.git#903a1319d5ee49b9f3f1bdab7a7e32228384138a"
-dependencies = [
- "async-signals",
- "async-std",
- "async-trait",
- "cdds_derive",
- "cyclonedds-rs",
- "fix-hidden-lifetime-bug",
- "futures",
- "futures-util",
- "libc",
- "serde",
- "serde_derive",
- "someip",
- "someip_derive",
- "thiserror",
- "tokio",
- "toml",
- "tracing",
-]
 
 [[package]]
 name = "scopeguard"
@@ -1398,15 +1320,6 @@ dependencies = [
  "pin-project-lite",
  "slab",
  "tokio",
-]
-
-[[package]]
-name = "toml"
-version = "0.5.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a31142970826733df8241ef35dc040ef98c679ab14d7c3e54d827099b3acecaa"
-dependencies = [
- "serde",
 ]
 
 [[package]]
