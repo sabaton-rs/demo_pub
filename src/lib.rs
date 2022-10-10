@@ -1,17 +1,15 @@
 #![forbid(unsafe_code)]
-/* 
+
 use std::{time::Duration, sync::Arc};
 use std::thread;
+use sabaton_mw::PublishOptions;
 // Main Library file
 use sabaton_mw::{NodeBuilder, error::MiddlewareError};
 use tracing::{debug, info, span, Level};
 //use vehicle_signals::{v2::{vehicle::Speed, self}, units::KilometrePerHour };
 use vehicle_signals::{
     units::KilometrePerHour,
-    v2::vehicle::cabin::door::window::Position,
-    v2::{vehicle::Speed, self},
-    v2::vehicle::IsMoving,
-    v2::vehicle::IgnitionOn,
+    v3::{vehicle::Speed, self},
 };
 
 pub fn example_node_main() -> Result<(),MiddlewareError> {
@@ -21,10 +19,9 @@ pub fn example_node_main() -> Result<(),MiddlewareError> {
         //.with_num_workers(4)    // Number of work threads. Fixed to 1 for single threaded runtime.
         .build("example-node".to_owned()).expect("Node creation error");
 
-
-    let mut SpeedWriter= node.advertise::<v2::vehicle::Speed>().expect("Unable to advertise");
-    let mut IsmovingWriter= node.advertise::<v2::vehicle::IsMoving>().expect("Unable to advertise");
-    let mut IgnitionOnWriter=node.advertise::<v2::vehicle::IgnitionOn>().expect("Unable to advertise");
+        let publish_options = PublishOptions::default();
+    let mut SpeedWriter= node.advertise::<v3::vehicle::Speed>(&publish_options).expect("Unable to advertise");
+   
     let res = node.spin(move || {
         
         span!(target: "MAIN", Level::TRACE, "Application Main Loop");
@@ -46,23 +43,6 @@ pub fn example_node_main() -> Result<(),MiddlewareError> {
                     Err(e) => println!("Error in publishing speed: {:?}", e),
                 }
                 
-                let moving = Arc::new(IsMoving::new(false,None).unwrap());
-                let mut res = IsmovingWriter.publish(moving.clone());
-                match res
-                {
-                    Ok(v)=> println!("IsMoving: {:?}", moving.value()),
-                    Err(e) => println!("Error in publishing moving: {:?}", e),
-                }
-                let ignition = Arc::new(IgnitionOn::new(false,None).unwrap());
-                let mut res = IgnitionOnWriter.publish(ignition.clone());
-                match res
-                {
-                    Ok(v)=> println!("Ignition: {:?}", ignition.value()),
-                    Err(e) => println!("Error in publishing ignition: {:?}", e),
-                }
-                
-                //println!("Is Moving={}",moving);
-                //println!("Igition On={}",ignition);
             }
 
          });
@@ -72,4 +52,4 @@ pub fn example_node_main() -> Result<(),MiddlewareError> {
 
     res
 
-}*/
+}
