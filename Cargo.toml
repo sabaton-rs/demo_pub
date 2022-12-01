@@ -11,6 +11,13 @@ authors = [""]
 publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+# Use DLT tracing subscriber
+# Enabling this features may require you to install libdlt on your system
+dlt = ["dep:dlt-tracing-subscriber"]
+## Don't enable dlt by default
+ default = ["dlt"]
+
 
 [dependencies]
 sabaton-mw = { git = "https://github.com/sabaton-rs/sabaton-mw.git"}
@@ -19,7 +26,7 @@ clap = { version= "3", features = ["cargo"]}
 tracing = "0.1"
 tokio = {version = "1", features = ["full"]}
 tracing-subscriber = "0.3"
-
+dlt-tracing-subscriber = { version = "0.1", optional = true}
 ## Topics and Interfaces this Application depends on
 ## Interfaces
 #interface-example = { git = "https://github.com/sabaton-rs/interface-example.git"}

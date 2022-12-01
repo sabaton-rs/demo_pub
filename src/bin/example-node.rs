@@ -2,6 +2,10 @@
 use clap::{arg, command};
 use publisher::example_node_main;
 use tracing::Level;
+use tracing_subscriber::prelude::*;
+
+#[cfg(feature = "dlt")]
+use dlt_tracing_subscriber::DltLayer;
 fn main() {
     let matches = command!()
         .arg(
@@ -34,14 +38,19 @@ fn main() {
         _ => Level::TRACE
     };
 
-    tracing_subscriber::fmt()
-        // all spans/events with a level higher than TRACE (e.g, info, warn, etc.)
-        // will be written to stdout.
-        .with_max_level(trace_filter)
-        // sets this to be the default, global collector for this application.
-        .with_target(true)
-        .init();
-
+   // Use DLT tracing subscriber if enabled
+   #[cfg(feature = "dlt")]
+   tracing_subscriber::registry()
+       .with(DltLayer::new("EXND","Example Application Node"))
+       .init();
+   #[cfg(not(feature = "dlt"))]    
+   tracing_subscriber::fmt()
+   // all spans/events with a level higher than TRACE (e.g, info, warn, etc.)
+   // will be written to stdout.
+   .with_max_level(trace_filter)
+   // sets this to be the default, global collector for this application.
+   .with_target(true)
+   .init();
 
     /*
         Process the command line arguments here and create a configuration structure that is then passed into the main function.
